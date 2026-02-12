@@ -82,42 +82,51 @@ const GAMES_DATABASE = [
     "tags": ["bike", "stunts", "physics"]
   },
   {
-    "id": "basketball-stars",
-    "title": "Basketball Stars",
-    "thumbnail": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop",
-    "url": "https://games.poki.com/458741/basketball-stars",
-    "category": "Sports",
-    "description": "Dunk on your friends in this competitive 2D basketball game.",
-    "tags": ["basketball", "2-player", "sports"],
-    "isHot": true
-  },
-  {
-    "id": "minecraft-eagler",
-    "title": "Minecraft (Eagler)",
-    "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop",
-    "url": "https://eaglercraft.com/mc/1.8.8/",
-    "category": "Retro",
-    "description": "The full 1.8.8 experience, including survival and creative modes, in your browser.",
-    "tags": ["minecraft", "sandbox", "survival"],
-    "isHot": true
-  },
-  {
-    "id": "basket-random",
-    "title": "Basket Random",
-    "thumbnail": "https://images.unsplash.com/photo-1519861531158-28636435014a?w=400&h=300&fit=crop",
-    "url": "https://www.twoplayergames.org/embed/basket-random",
-    "category": "Sports",
-    "description": "Wacky basketball with one-button controls and unpredictable physics.",
-    "tags": ["funny", "2-player", "pixel"]
-  },
-  {
-    "id": "tunnel-rush",
-    "title": "Tunnel Rush",
-    "thumbnail": "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&h=300&fit=crop",
-    "url": "https://tunnelrush.io/",
+    "id": "geometry-dash",
+    "title": "Geometry Dash",
+    "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
+    "url": "https://scratch.mit.edu/projects/105500895/embed",
     "category": "Action",
-    "description": "Dodge spinning obstacles at high speed in this neon tunnel.",
-    "tags": ["speed", "neon", "reflex"]
+    "description": "Jump and fly through danger in this rhythm-based action platformer.",
+    "tags": ["rhythm", "platformer", "difficult"],
+    "isHot": true
+  },
+  {
+    "id": "fireboy-watergirl",
+    "title": "Fireboy & Watergirl",
+    "thumbnail": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop",
+    "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydigital/fbwg1@main/fbwg1.xml",
+    "category": "Puzzle",
+    "description": "Two heroes must work together to escape the Forest Temple.",
+    "tags": ["2-player", "co-op", "puzzle"],
+    "isHot": true
+  },
+  {
+    "id": "drift-hunters",
+    "title": "Drift Hunters",
+    "thumbnail": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=300&fit=crop",
+    "url": "https://drift-hunters.io/",
+    "category": "Sports",
+    "description": "Customize your car and drift on various tracks in this 3D simulator.",
+    "tags": ["racing", "drift", "3d"]
+  },
+  {
+    "id": "vex-5",
+    "title": "Vex 5",
+    "thumbnail": "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=400&h=300&fit=crop",
+    "url": "https://vex5.io/",
+    "category": "Action",
+    "description": "Challenging stickman parkour. Navigate through deadly levels.",
+    "tags": ["platformer", "action", "difficult"]
+  },
+  {
+    "id": "google-snake",
+    "title": "Google Snake",
+    "thumbnail": "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400&h=300&fit=crop",
+    "url": "https://www.google.com/logos/2010/pacman10-i.html",
+    "category": "Retro",
+    "description": "The ultimate classic. Simple, addictive, and perfect for breaks.",
+    "tags": ["retro", "snake", "classic"]
   },
   {
     "id": "cookie-clicker",
@@ -129,33 +138,13 @@ const GAMES_DATABASE = [
     "tags": ["idle", "clicker", "upgrade"]
   },
   {
-    "id": "paper-io-2",
-    "title": "Paper.io 2",
-    "thumbnail": "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=400&h=300&fit=crop",
-    "url": "https://paper-io.com/",
-    "category": "Action",
-    "description": "Conquer as much territory as possible. Don't let others hit your tail!",
-    "tags": ["multiplayer", "io", "strategy"]
-  },
-  {
-    "id": "smash-karts",
-    "title": "Smash Karts",
-    "thumbnail": "https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?w=400&h=300&fit=crop",
-    "url": "https://smashkarts.io/",
-    "category": "Action",
-    "description": "Kart racing with a explosive twist. Battle players online in 3D arena.",
-    "tags": ["kart", "battle", "online"],
-    "isHot": true
-  },
-  {
-    "id": "geometry-dash",
-    "title": "Geometry Dash",
-    "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
-    "url": "https://scratch.mit.edu/projects/105500895/embed",
-    "category": "Action",
-    "description": "Jump and fly through danger in this rhythm-based action platformer.",
-    "tags": ["rhythm", "platformer", "difficult"],
-    "isNew": true
+    "id": "basketball-stars",
+    "title": "Basketball Stars",
+    "thumbnail": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop",
+    "url": "https://games.poki.com/458741/basketball-stars",
+    "category": "Sports",
+    "description": "Dunk on your friends in this competitive 2D basketball game.",
+    "tags": ["basketball", "2-player", "sports"]
   },
   {
     "id": "eggy-car",
@@ -267,10 +256,9 @@ function cacheElements() {
 async function suggestGame() {
   if (!elements.suggestBtn) return;
   const originalText = elements.suggestBtn.innerHTML;
-  elements.suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+  elements.suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Thinking...';
   
   try {
-    // Correct initialization: always use new GoogleGenAI({apiKey: process.env.API_KEY})
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const gameTitles = GAMES_DATABASE.map(g => g.title).join(', ');
     const response = await ai.models.generateContent({
@@ -396,9 +384,6 @@ function createGameCard(game: any) {
   `;
 }
 
-// --- FIXES: IMPLEMENTING MISSING FUNCTIONS ---
-
-// Fix: Implemented launchGame to handle view switching and iframe loading
 function launchGame(gameId: string) {
   const game = GAMES_DATABASE.find(g => g.id === gameId);
   if (!game || !elements.playerView || !elements.dashboardView || !elements.gameIframe) return;
@@ -422,7 +407,6 @@ function launchGame(gameId: string) {
   window.scrollTo(0, 0);
 }
 
-// Fix: Implemented showDashboard to return from player to library view
 function showDashboard() {
   if (!elements.dashboardView || !elements.playerView || !elements.gameIframe) return;
   
@@ -433,7 +417,6 @@ function showDashboard() {
   elements.dashboardView.classList.remove('hidden');
 }
 
-// Fix: Implemented attachCardListeners to assign click events to game cards
 function attachCardListeners() {
   document.querySelectorAll('.game-card').forEach(card => {
     const id = (card as HTMLElement).dataset.id;
@@ -474,8 +457,8 @@ function toggleStealth() {
     if (elements.favicon) elements.favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
     elements.stealthToggle?.classList.add('text-indigo-500');
   } else {
-    document.title = "GameVault | Unblocked Hub";
-    if (elements.favicon) elements.favicon.href = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=32&h=32&fit=crop";
+    document.title = "Gabriel Village | Unblocked Games";
+    if (elements.favicon) elements.favicon.href = "https://picsum.photos/32/32?random=50";
     elements.stealthToggle?.classList.remove('text-indigo-500');
   }
 }
@@ -520,9 +503,29 @@ function setupEventListeners() {
 }
 
 // --- INITIALIZATION ---
-window.onload = () => {
+function init() {
   cacheElements();
+  
+  // Early check to ensure elements are cached before rendering
+  if (!elements.gamesGrid) {
+    console.warn("Retrying UI cache...");
+    setTimeout(init, 50);
+    return;
+  }
+
   renderCategories();
   renderGames();
   setupEventListeners();
-};
+  console.log("Gabriel Village: Engine initialized.");
+}
+
+// Check state and fire as early as possible
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+// Fallback in case DOMContentLoaded was missed
+window.addEventListener('load', () => {
+  if (!elements.gamesGrid) init();
+});
