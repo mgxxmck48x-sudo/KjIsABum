@@ -2,7 +2,9 @@
 import { GoogleGenAI } from "@google/genai";
 
 // --- GAME DATABASE ---
-// Using verified iframe-friendly mirrors to minimize "black screen" or "refused to connect" errors.
+// Using verified, iframe-friendly mirrors. 
+// Note: Some games may occasionally be blocked by strict school filters, 
+// but these sources are generally high-availability.
 const GAMES_DATABASE = [
   {
     "id": "retro-bowl",
@@ -10,8 +12,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1626021407447-ca631102946c?w=400&h=300&fit=crop",
     "url": "https://game312.github.io/retro-bowl/",
     "category": "Sports",
-    "description": "The ultimate retro-style American football management game. Lead your team to glory!",
-    "tags": ["football", "sports", "retro", "popular"],
+    "description": "Lead your football team to victory in this retro-style management masterpiece.",
+    "tags": ["football", "sports", "retro"],
     "isHot": true
   },
   {
@@ -20,18 +22,18 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1614294149010-950b698f72c0?w=400&h=300&fit=crop",
     "url": "https://kdata1.com/2020/05/slope/",
     "category": "Action",
-    "description": "Control a ball rolling down a steep slope. Avoid obstacles and don't fall off!",
-    "tags": ["action", "3d", "speed"],
+    "description": "Speed down neon slopes, avoid obstacles, and keep your ball on the track.",
+    "tags": ["3d", "speed", "reflex"],
     "isHot": true
   },
   {
     "id": "subway-surfers",
     "title": "Subway Surfers",
     "thumbnail": "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=400&h=300&fit=crop",
-    "url": "https://poki.com/en/g/subway-surfers",
+    "url": "https://games.poki.com/458741/653289",
     "category": "Action",
-    "description": "Dash as fast as you can! Dodge the oncoming trains!",
-    "tags": ["runner", "action", "classic"],
+    "description": "The world-famous endless runner. Dodge trains and escape the inspector!",
+    "tags": ["runner", "classic", "popular"],
     "isHot": true
   },
   {
@@ -40,7 +42,7 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop",
     "url": "https://1v1.lol/",
     "category": "Action",
-    "description": "Competitive third-person shooter with building mechanics. Practice your 1v1 skills.",
+    "description": "Build, edit, and shoot in this competitive multiplayer battle royale trainer.",
     "tags": ["shooter", "building", "multiplayer"],
     "isHot": true
   },
@@ -48,10 +50,10 @@ const GAMES_DATABASE = [
     "id": "temple-run-2",
     "title": "Temple Run 2",
     "thumbnail": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&h=300&fit=crop",
-    "url": "https://poki.com/en/g/temple-run-2",
+    "url": "https://games.poki.com/458741/temple-run-2",
     "category": "Action",
-    "description": "Navigate perilous cliffs, zip lines, mines and forests as you try to escape with the cursed idol.",
-    "tags": ["runner", "action"],
+    "description": "Escape from the demon monkeys in this legendary sequel to the classic runner.",
+    "tags": ["runner", "classic"],
     "isNew": true
   },
   {
@@ -60,8 +62,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?w=400&h=300&fit=crop",
     "url": "https://bitlifeonline.io/",
     "category": "Other",
-    "description": "A life simulator where you make choices from birth to death. Who will you become?",
-    "tags": ["simulation", "life", "text-based"],
+    "description": "Live a thousand lives. Your choices define your destiny in this text-based simulator.",
+    "tags": ["simulation", "text-based"],
     "isNew": true
   },
   {
@@ -70,8 +72,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&h=300&fit=crop",
     "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydigital/run3@main/run3.xml",
     "category": "Action",
-    "description": "Run and jump through space tunnels. Gravity shifts as you move around the walls.",
-    "tags": ["action", "space", "runner"]
+    "description": "Defy gravity in space tunnels. A classic school favorite.",
+    "tags": ["gravity", "space", "runner"]
   },
   {
     "id": "moto-x3m",
@@ -79,17 +81,17 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400&h=300&fit=crop",
     "url": "https://motox3m.co/",
     "category": "Sports",
-    "description": "Extreme bike stunts and racing. Beat the timer and avoid deadly traps.",
-    "tags": ["racing", "bike", "stunts"]
+    "description": "Perform insane stunts and beat the timer on deadly tracks.",
+    "tags": ["bike", "stunts", "physics"]
   },
   {
     "id": "basketball-stars",
     "title": "Basketball Stars",
     "thumbnail": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop",
-    "url": "https://poki.com/en/g/basketball-stars",
+    "url": "https://games.poki.com/458741/basketball-stars",
     "category": "Sports",
-    "description": "Play as the best basketball stars in the world in this fast-paced 2D game.",
-    "tags": ["sports", "basketball", "2-player"],
+    "description": "Dunk on your friends in this competitive 2D basketball game.",
+    "tags": ["basketball", "2-player", "sports"],
     "isHot": true
   },
   {
@@ -98,8 +100,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop",
     "url": "https://eaglercraft.com/mc/1.8.8/",
     "category": "Retro",
-    "description": "Full browser-based Minecraft 1.8.8. Survival and Creative modes.",
-    "tags": ["survival", "creative", "sandbox"],
+    "description": "The full 1.8.8 experience, including survival and creative modes, in your browser.",
+    "tags": ["minecraft", "sandbox", "survival"],
     "isHot": true
   },
   {
@@ -108,8 +110,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1519861531158-28636435014a?w=400&h=300&fit=crop",
     "url": "https://www.twoplayergames.org/embed/basket-random",
     "category": "Sports",
-    "description": "Wacky basketball with ragdoll physics. Simple controls, infinite fun.",
-    "tags": ["sports", "2-player", "physics"]
+    "description": "Wacky basketball with one-button controls and unpredictable physics.",
+    "tags": ["funny", "2-player", "pixel"]
   },
   {
     "id": "tunnel-rush",
@@ -117,8 +119,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&h=300&fit=crop",
     "url": "https://tunnelrush.io/",
     "category": "Action",
-    "description": "High-speed neon tunnel runner. Test your reflexes to the limit.",
-    "tags": ["action", "speed", "neon"]
+    "description": "Dodge spinning obstacles at high speed in this neon tunnel.",
+    "tags": ["speed", "neon", "reflex"]
   },
   {
     "id": "cookie-clicker",
@@ -126,8 +128,8 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&h=300&fit=crop",
     "url": "https://orteil.dashnet.org/cookieclicker/",
     "category": "Other",
-    "description": "The original idle game. Click cookies, buy grandmas, and rule the world.",
-    "tags": ["clicker", "idle", "addictive"]
+    "description": "Bake billions of cookies and upgrade your empire in the ultimate idle game.",
+    "tags": ["idle", "clicker", "upgrade"]
   },
   {
     "id": "paper-io-2",
@@ -135,7 +137,7 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=400&h=300&fit=crop",
     "url": "https://paper-io.com/",
     "category": "Action",
-    "description": "Claim territory by drawing paths. Don't let others hit your trail!",
+    "description": "Conquer as much territory as possible. Don't let others hit your tail!",
     "tags": ["multiplayer", "io", "strategy"]
   },
   {
@@ -144,73 +146,73 @@ const GAMES_DATABASE = [
     "thumbnail": "https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?w=400&h=300&fit=crop",
     "url": "https://smashkarts.io/",
     "category": "Action",
-    "description": "3D kart battle game. Pick up power-ups and blast your friends!",
-    "tags": ["multiplayer", "kart", "3d"],
+    "description": "Kart racing with a explosive twist. Battle players online in 3D arena.",
+    "tags": ["kart", "battle", "online"],
     "isHot": true
   },
   {
-    "id": "chess",
-    "title": "Chess.com",
-    "thumbnail": "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?w=400&h=300&fit=crop",
-    "url": "https://www.chess.com/play/online",
-    "category": "Strategy",
-    "description": "Play the world's #1 strategy game online against players or bots.",
-    "tags": ["strategy", "board", "educational"]
-  },
-  {
-    "id": "tetris",
-    "title": "Tetris",
-    "thumbnail": "https://images.unsplash.com/photo-1585670210693-e7fdd16b142e?w=400&h=300&fit=crop",
-    "url": "https://tetris.com/play-tetris",
-    "category": "Retro",
-    "description": "The classic block-stacking puzzle. Clear lines to score high.",
-    "tags": ["puzzle", "retro", "classic"]
-  },
-  {
-    "id": "vex-5",
-    "title": "Vex 5",
-    "thumbnail": "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=400&h=300&fit=crop",
-    "url": "https://vex5.io/",
+    "id": "geometry-dash",
+    "title": "Geometry Dash",
+    "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
+    "url": "https://scratch.mit.edu/projects/105500895/embed",
     "category": "Action",
-    "description": "Challenging stickman parkour. Navigate through deadly levels.",
-    "tags": ["platformer", "action", "difficult"]
-  },
-  {
-    "id": "2048",
-    "title": "2048",
-    "thumbnail": "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400&h=300&fit=crop",
-    "url": "https://play2048.co/",
-    "category": "Puzzle",
-    "description": "Merge numbers to reach the 2048 tile. Highly addictive math puzzle.",
-    "tags": ["puzzle", "math", "strategy"]
-  },
-  {
-    "id": "drift-hunters",
-    "title": "Drift Hunters",
-    "thumbnail": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=300&fit=crop",
-    "url": "https://drift-hunters.io/",
-    "category": "Sports",
-    "description": "Customize your car and drift on various tracks in this 3D simulator.",
-    "tags": ["racing", "drift", "3d"]
-  },
-  {
-    "id": "snowball-io",
-    "title": "Snowball.io",
-    "thumbnail": "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=400&h=300&fit=crop",
-    "url": "https://snowball.io/",
-    "category": "Action",
-    "description": "Roll a massive snowball and knock other players off the iceberg!",
-    "tags": ["multiplayer", "io", "casual"]
-  },
-  {
-    "id": "friday-night-funkin",
-    "title": "FNF (Web)",
-    "thumbnail": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop",
-    "url": "https://ninja-muffin24.itch.io/funkin",
-    "category": "Retro",
-    "description": "Rhythm-based battle game. Press the arrows to the beat!",
-    "tags": ["rhythm", "music", "retro"],
+    "description": "Jump and fly through danger in this rhythm-based action platformer.",
+    "tags": ["rhythm", "platformer", "difficult"],
     "isNew": true
+  },
+  {
+    "id": "worlds-hardest-game",
+    "title": "World's Hardest Game",
+    "thumbnail": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&h=300&fit=crop",
+    "url": "https://fun-unblocked-games.github.io/the-worlds-hardest-game/",
+    "category": "Puzzle",
+    "description": "Navigate through dangerous levels. It's more difficult than you think.",
+    "tags": ["hard", "puzzle", "logic"]
+  },
+  {
+    "id": "fireboy-watergirl",
+    "title": "Fireboy & Watergirl",
+    "thumbnail": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop",
+    "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydigital/fbwg1@main/fbwg1.xml",
+    "category": "Puzzle",
+    "description": "Two heroes must work together to escape the Forest Temple.",
+    "tags": ["2-player", "co-op", "puzzle"]
+  },
+  {
+    "id": "duck-life-4",
+    "title": "Duck Life 4",
+    "thumbnail": "https://images.unsplash.com/photo-1555844411-390213a69988?w=400&h=300&fit=crop",
+    "url": "https://fun-unblocked-games.github.io/duck-life-4/",
+    "category": "Other",
+    "description": "Train your duck to be a champion in racing and flying.",
+    "tags": ["training", "duck", "adventure"]
+  },
+  {
+    "id": "stickman-hook",
+    "title": "Stickman Hook",
+    "thumbnail": "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=400&h=300&fit=crop",
+    "url": "https://games.poki.com/458741/stickman-hook",
+    "category": "Action",
+    "description": "Swing like a spider and cross the finish line!",
+    "tags": ["swing", "physics", "casual"]
+  },
+  {
+    "id": "soccer-random",
+    "title": "Soccer Random",
+    "thumbnail": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=300&fit=crop",
+    "url": "https://www.twoplayergames.org/embed/soccer-random",
+    "category": "Sports",
+    "description": "Funny physics-based soccer. Just one button to score goals!",
+    "tags": ["soccer", "funny", "2-player"]
+  },
+  {
+    "id": "google-snake",
+    "title": "Google Snake",
+    "thumbnail": "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400&h=300&fit=crop",
+    "url": "https://www.google.com/logos/2010/pacman10-i.html",
+    "category": "Retro",
+    "description": "The ultimate classic. Simple, addictive, and perfect for breaks.",
+    "tags": ["retro", "snake", "classic"]
   }
 ];
 
@@ -233,7 +235,7 @@ const CATEGORIES = [
   { name: 'Other', icon: 'fa-cubes' }
 ];
 
-// --- DOM ELEMENTS ---
+// --- DOM ELEMENTS CACHE ---
 interface AppElements {
   gamesGrid: HTMLElement | null;
   favsGrid: HTMLElement | null;
@@ -312,24 +314,24 @@ function cacheElements() {
 async function suggestGame() {
   if (!elements.suggestBtn) return;
   const originalText = elements.suggestBtn.innerHTML;
-  elements.suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Thinking...';
+  elements.suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
   
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
     const gameTitles = GAMES_DATABASE.map(g => g.title).join(', ');
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
-      contents: `From this list of games: ${gameTitles}, suggest ONE game title that a student would enjoy playing during a short school break. Only return the exact title string.`,
+      contents: `From this list: ${gameTitles}, pick exactly one game title that is popular with students. Output ONLY the title.`,
     });
 
     const suggestion = response.text?.trim() || 'Retro Bowl';
-    const game = GAMES_DATABASE.find(g => suggestion.includes(g.title)) || GAMES_DATABASE[0];
+    const game = GAMES_DATABASE.find(g => suggestion.toLowerCase().includes(g.title.toLowerCase())) || GAMES_DATABASE[0];
     
-    elements.suggestBtn.innerHTML = `<i class="fas fa-magic"></i> Try ${game.title}!`;
+    elements.suggestBtn.innerHTML = `<i class="fas fa-magic"></i> Launching ${game.title}...`;
     setTimeout(() => {
       launchGame(game.id);
       elements.suggestBtn!.innerHTML = originalText;
-    }, 1000);
+    }, 800);
 
   } catch (error) {
     console.error("Gemini Suggestion Failed:", error);
@@ -378,6 +380,7 @@ function renderGames() {
 
   const favorites = GAMES_DATABASE.filter(g => state.favorites.includes(g.id));
 
+  // Update Library Grid
   if (elements.gamesGrid) {
     if (filtered.length === 0) {
       elements.gamesGrid.innerHTML = '';
@@ -388,6 +391,7 @@ function renderGames() {
     }
   }
 
+  // Update Favorites Section
   if (elements.favsSection && elements.favsGrid) {
     if (favorites.length > 0 && state.currentCategory === 'All' && state.searchQuery === '') {
       elements.favsSection.classList.remove('hidden');
@@ -397,11 +401,13 @@ function renderGames() {
     }
   }
 
+  // Update Status Displays
   if (elements.gameCountDisplay) {
-    elements.gameCountDisplay.textContent = `Showing ${filtered.length} games`;
+    elements.gameCountDisplay.textContent = `Library: ${filtered.length} games ready`;
+    elements.gameCountDisplay.classList.remove('animate-pulse'); // Stop the "syncing" pulse
   }
   if (elements.collectionTitle) {
-    elements.collectionTitle.innerHTML = `<div class="w-2 h-8 bg-indigo-500 rounded-full"></div> ${state.currentCategory === 'All' ? 'Popular Games' : state.currentCategory}`;
+    elements.collectionTitle.innerHTML = `<div class="w-2 h-8 bg-indigo-500 rounded-full"></div> ${state.currentCategory === 'All' ? 'Best Unblocked Games' : state.currentCategory}`;
   }
 
   attachCardListeners();
@@ -460,19 +466,20 @@ function launchGame(id: string) {
   elements.playerView?.classList.remove('hidden');
   elements.gameLoader?.classList.remove('hidden');
   
-  // Clear existing iframe to avoid residue
+  // Clear and reload
   if (elements.gameIframe) {
     elements.gameIframe.src = "about:blank";
-    // Short timeout to ensure cleaner load
     setTimeout(() => {
         if (elements.gameIframe) elements.gameIframe.src = game.url;
-    }, 50);
+    }, 100);
   }
 
   if (elements.gameIframe) {
     elements.gameIframe.onload = () => {
       elements.gameLoader?.classList.add('hidden');
     };
+    // Fallback if onload doesn't fire (some sites block it)
+    setTimeout(() => elements.gameLoader?.classList.add('hidden'), 5000);
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -508,14 +515,14 @@ function toggleFavorite(id: string) {
 
 function updateStealthUI() {
   if (state.isStealth) {
-    document.title = "Classes | Google Classroom";
-    if (elements.favicon) elements.favicon.href = "https://ssl.gstatic.com/classroom/favicon.png";
+    document.title = "My Drive - Google Drive";
+    if (elements.favicon) elements.favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
     if (elements.stealthToggle) {
-      elements.stealthToggle.innerHTML = '<i class="fas fa-user-secret"></i><span class="hidden md:inline">Stealth: ON</span>';
+      elements.stealthToggle.innerHTML = '<i class="fas fa-eye-slash"></i><span class="hidden md:inline">Stealth: ON</span>';
       elements.stealthToggle.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
     }
   } else {
-    document.title = "Gabriel Village | Unblocked";
+    document.title = "Gabriel Village | Unblocked Games";
     if (elements.favicon) elements.favicon.href = "https://picsum.photos/32/32?random=50";
     if (elements.stealthToggle) {
       elements.stealthToggle.innerHTML = '<i class="fas fa-mask"></i><span class="hidden md:inline">Stealth Mode</span>';
@@ -528,10 +535,15 @@ function updateStealthUI() {
 function startApp() {
   cacheElements();
   
+  // Hard fix: ensure at least the grid is present before continuing
   if (!elements.gamesGrid) {
-      console.warn("Retrying initialization...");
-      setTimeout(startApp, 100);
-      return;
+      const grid = document.getElementById('games-grid');
+      if (grid) {
+          elements.gamesGrid = grid;
+      } else {
+          console.error("Critical Failure: UI container missing.");
+          return;
+      }
   }
 
   renderCategories();
@@ -556,16 +568,16 @@ function startApp() {
     const iframe = elements.gameIframe as any;
     if (iframe.requestFullscreen) iframe.requestFullscreen();
     else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-    else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
   });
 
   updateStealthUI();
-  console.log("Gabriel Village Game Engine Initialized.");
+  console.log("Gabriel Village Game Engine: System Online.");
 }
 
-// Robust loading
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startApp);
-} else {
+// Multi-stage loader for maximum compatibility
+window.addEventListener('load', startApp);
+document.addEventListener('DOMContentLoaded', startApp);
+// Immediate attempt
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
     startApp();
 }

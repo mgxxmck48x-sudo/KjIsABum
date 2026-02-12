@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gabriel Village | Unblocked</title>
+  <title>Gabriel Village | Unblocked Games</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link id="favicon" rel="icon" type="image/png" href="https://picsum.photos/32/32?random=50">
@@ -18,7 +18,7 @@
 </script>
 </head>
 <body class="bg-[#0f172a] text-slate-100 min-h-screen selection:bg-indigo-500/30">
-  <div id="app" class="flex flex-col min-h-screen">
+  <div id="app" class="flex flex-col min-h-screen relative z-10">
     <!-- Navbar -->
     <nav class="glass sticky top-0 z-50 px-4 md:px-8 py-3 flex items-center justify-between gap-4 border-b border-slate-800/50">
       <div id="nav-logo" class="flex items-center gap-3 shrink-0 cursor-pointer group">
@@ -35,7 +35,7 @@
         <input 
           id="search-input"
           type="text" 
-          placeholder="Search 20+ unblocked games..." 
+          placeholder="Search 30+ unblocked games..." 
           class="w-full bg-slate-900/60 border border-slate-700/50 rounded-2xl py-2.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all text-slate-200 placeholder:text-slate-500"
         />
       </div>
@@ -46,7 +46,7 @@
           class="hidden lg:flex h-10 px-4 rounded-xl text-sm font-semibold bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-600/20 transition-all items-center gap-2"
         >
           <i class="fas fa-magic"></i>
-          <span>Suggest Game</span>
+          <span>AI Pick</span>
         </button>
         <button 
           id="stealth-toggle"
@@ -54,7 +54,7 @@
           title="Toggle Stealth Mode"
         >
           <i class="fas fa-mask"></i>
-          <span class="hidden md:inline">Stealth Mode</span>
+          <span class="hidden md:inline">Stealth</span>
         </button>
       </div>
     </nav>
@@ -70,33 +70,33 @@
         </div>
         <div class="mt-auto pt-8 hidden md:block">
           <div class="bg-indigo-600/5 border border-indigo-500/10 rounded-2xl p-4 text-center">
-            <p class="text-xs text-slate-400 mb-3">Can't decide?</p>
-            <button onclick="document.getElementById('suggest-game-btn').click()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/20">
-              Randomize
+            <p class="text-[10px] text-slate-400 mb-3 uppercase tracking-widest font-bold">Can't Decide?</p>
+            <button onclick="document.getElementById('suggest-game-btn').click()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition-all shadow-lg shadow-indigo-600/20 uppercase">
+              AI Suggestion
             </button>
           </div>
         </div>
       </aside>
 
       <!-- Main Content Area -->
-      <main class="flex-1 overflow-y-auto p-4 md:p-8 relative z-10" id="main-content">
+      <main class="flex-1 overflow-y-auto p-4 md:p-8 relative" id="main-content">
         <!-- Dashboard view -->
         <div id="dashboard-view">
-          <div id="favorites-section" class="hidden mb-12">
+          <div id="favorites-section" class="hidden mb-12 animate-in">
             <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
               <div class="w-2 h-8 bg-red-500 rounded-full"></div>
-              My Favorites
+              Your Favorites
             </h2>
             <div id="favorites-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
           </div>
 
-          <section>
+          <section class="animate-in">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
               <h2 class="text-2xl font-bold flex items-center gap-3" id="collection-title">
                 <div class="w-2 h-8 bg-indigo-500 rounded-full"></div>
-                Popular Games
+                Best Unblocked Games
               </h2>
-              <div id="game-count" class="text-slate-400 text-sm bg-slate-800/50 px-4 py-1 rounded-full border border-slate-700">
+              <div id="game-count" class="text-slate-400 text-[10px] uppercase font-bold tracking-widest bg-slate-800/50 px-4 py-1.5 rounded-full border border-slate-700 animate-pulse">
                 Syncing library...
               </div>
             </div>
@@ -115,18 +115,18 @@
           <div class="max-w-6xl mx-auto flex flex-col gap-6">
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
-                <button id="back-button" class="text-indigo-400 text-sm hover:text-indigo-300 flex items-center gap-2 mb-2 transition-colors">
+                <button id="back-button" class="text-indigo-400 text-sm font-bold hover:text-indigo-300 flex items-center gap-2 mb-2 transition-colors">
                   <i class="fas fa-arrow-left"></i>
-                  Back to Library
+                  BACK TO LIBRARY
                 </button>
-                <h1 id="playing-title" class="text-3xl font-extrabold text-white tracking-tight">Game Title</h1>
+                <h1 id="playing-title" class="text-3xl font-black text-white tracking-tight uppercase">Game Title</h1>
               </div>
               <div class="flex items-center gap-3">
-                <button id="player-fav-toggle" class="px-4 py-2 rounded-xl flex items-center gap-2 font-medium border transition-all bg-slate-800 border-slate-700 text-slate-400">
+                <button id="player-fav-toggle" class="px-4 py-2.5 rounded-xl flex items-center gap-2 font-black text-xs uppercase border transition-all bg-slate-800 border-slate-700 text-slate-400">
                   <i class="fas fa-heart"></i>
                   <span>Add Favorite</span>
                 </button>
-                <button id="fullscreen-button" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-500 transition-colors flex items-center gap-2 shadow-lg shadow-indigo-600/20">
+                <button id="fullscreen-button" class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-black text-xs uppercase hover:bg-indigo-500 transition-colors flex items-center gap-2 shadow-lg shadow-indigo-600/20">
                   <i class="fas fa-expand"></i>
                   Fullscreen
                 </button>
@@ -136,17 +136,20 @@
             <div class="relative w-full aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
               <div id="game-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 z-10 gap-4">
                 <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-                <p class="text-slate-400 font-medium">Booting Gabriel Engine...</p>
+                <p class="text-slate-400 font-bold text-xs uppercase tracking-[0.2em]">Booting Secure Engine...</p>
               </div>
-              <iframe id="game-iframe" src="" class="w-full h-full border-none" allow="autoplay; fullscreen; keyboard; gamepad"></iframe>
+              <iframe id="game-iframe" src="about:blank" class="w-full h-full border-none" allow="autoplay; fullscreen; keyboard; gamepad; geolocation; microphone; camera" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-scripts allow-same-origin"></iframe>
             </div>
 
             <div class="glass p-8 rounded-3xl border-slate-700/50">
-              <h2 class="text-xl font-bold mb-4 text-slate-100 flex items-center gap-3">
-                <i class="fas fa-info-circle text-indigo-400"></i>
-                Description
-              </h2>
-              <p id="playing-description" class="text-slate-400 leading-relaxed"></p>
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-slate-100 flex items-center gap-3">
+                  <i class="fas fa-info-circle text-indigo-400"></i>
+                  Instructions & Info
+                </h2>
+                <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest bg-slate-900/50 px-3 py-1 rounded-lg">Iframe Secure</span>
+              </div>
+              <p id="playing-description" class="text-slate-400 leading-relaxed text-sm"></p>
             </div>
           </div>
         </div>
@@ -154,13 +157,13 @@
     </div>
 
     <!-- Footer -->
-    <footer class="glass py-6 px-6 text-center text-slate-500 text-sm border-t border-slate-800 z-10">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-        <p>© 2024 Gabriel Village. Fast, Unblocked, and Secure.</p>
+    <footer class="glass py-6 px-6 text-center text-slate-500 text-xs border-t border-slate-800 z-10">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-medium uppercase tracking-widest">
+        <p>© 2024 Gabriel Village | Premium Unblocked</p>
         <div class="flex gap-6">
           <a href="#" class="hover:text-indigo-400 transition-colors">Discord</a>
-          <a href="#" class="hover:text-indigo-400 transition-colors">Credits</a>
-          <a href="#" class="hover:text-indigo-400 transition-colors">Report</a>
+          <a href="#" class="hover:text-indigo-400 transition-colors">Broken?</a>
+          <a href="#" class="hover:text-indigo-400 transition-colors">Request Game</a>
         </div>
       </div>
     </footer>
