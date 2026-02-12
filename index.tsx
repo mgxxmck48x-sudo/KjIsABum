@@ -1,11 +1,100 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
-import { GAMES_DATA } from './games';
-import { Category, Game } from './types';
 
 /** 
- * UI COMPONENTS 
+ * DATA & TYPES 
+ */
+
+type Category = 'All' | 'Action' | 'Puzzle' | 'Strategy' | 'Sports' | 'Retro' | 'Other';
+
+interface Game {
+  id: string;
+  title: string;
+  thumbnail: string;
+  url: string;
+  category: Category;
+  description: string;
+  tags: string[];
+}
+
+const GAMES_DATA: Game[] = [
+  {
+    id: "basket-random",
+    title: "Basket Random",
+    thumbnail: "https://images.unsplash.com/photo-1519861531158-28636435014a?w=400&h=300&fit=crop",
+    url: "https://www.twoplayergames.org/embed/basket-random",
+    category: "Sports",
+    description: "Basket Random is a 2-player arcade game with ragdoll physics. Hop and fight for the ball through different fields.",
+    tags: ["sports", "2-player", "ragdoll"]
+  },
+  {
+    id: "roblox",
+    title: "Roblox (Cloud)",
+    thumbnail: "https://images.unsplash.com/photo-1590133323030-949dd194a601?w=400&h=300&fit=crop",
+    url: "https://now.gg/play/roblox-corporation/5349/roblox",
+    category: "Other",
+    description: "Play Roblox instantly in your browser via cloud gaming. Access millions of user-created games.",
+    tags: ["multiplayer", "sandbox", "cloud"]
+  },
+  {
+    id: "minecraft-eagler",
+    title: "Minecraft (Eaglercraft)",
+    thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop",
+    url: "https://eaglercraft.com/mc/1.8.8/",
+    category: "Retro",
+    description: "A full browser-based version of Minecraft 1.8.8. Survival and Creative support included.",
+    tags: ["survival", "creative", "classic"]
+  },
+  {
+    id: "1v1-lol",
+    title: "1v1.LOL",
+    thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop",
+    url: "https://1v1.lol/",
+    category: "Action",
+    description: "Build, edit, and shoot in this competitive third-person shooter. Practice your 1v1 skills.",
+    tags: ["action", "shooter", "building"]
+  },
+  {
+    id: "tunnel-rush",
+    title: "Tunnel Rush",
+    thumbnail: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&h=300&fit=crop",
+    url: "https://tunnelrush.io/",
+    category: "Action",
+    description: "Speed through neon tunnels avoiding obstacles. Test your reflexes in this high-speed geometric runner.",
+    tags: ["action", "speed", "reflex"]
+  },
+  {
+    id: "2048",
+    title: "2048",
+    thumbnail: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400&h=300&fit=crop",
+    url: "https://play2048.co/",
+    category: "Puzzle",
+    description: "Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge!",
+    tags: ["puzzle", "math", "strategy"]
+  },
+  {
+    id: "cookie-clicker",
+    title: "Cookie Clicker",
+    thumbnail: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&h=300&fit=crop",
+    url: "https://orteil.dashnet.org/cookieclicker/",
+    category: "Other",
+    description: "The classic idle game. Click the cookie, buy upgrades, and build your cookie empire.",
+    tags: ["clicker", "idle", "addicting"]
+  },
+  {
+    id: "slope",
+    title: "Slope",
+    thumbnail: "https://images.unsplash.com/photo-1614294149010-950b698f72c0?w=400&h=300&fit=crop",
+    url: "https://slope-game.github.io/",
+    category: "Action",
+    description: "A fast-paced 3D runner game where you control a ball rolling down a slope.",
+    tags: ["action", "3d", "speed"]
+  }
+];
+
+/** 
+ * COMPONENTS 
  */
 
 const Navbar = ({ onSearch, isStealth, toggleStealth }: any) => (
@@ -30,7 +119,7 @@ const Navbar = ({ onSearch, isStealth, toggleStealth }: any) => (
     <button 
       onClick={toggleStealth}
       className={`h-10 px-4 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
-        isStealth ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700'
+        isStealth ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700'
       }`}
     >
       <i className={`fas ${isStealth ? 'fa-user-secret' : 'fa-mask'}`}></i>
@@ -51,9 +140,6 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }: any) => {
   ];
   return (
     <aside className="w-20 md:w-64 glass hidden sm:flex flex-col border-r border-slate-800/50 p-4 gap-1 h-[calc(100vh-64px)]">
-      <div className="text-[10px] font-black text-slate-500 px-4 py-3 uppercase tracking-[0.2em] hidden md:block">
-        Categories
-      </div>
       {categories.map((cat) => (
         <button
           key={cat.name}
@@ -96,9 +182,7 @@ const GameGrid = ({ games, favorites, toggleFavorite }: any) => {
             </button>
           </div>
           <div className="p-4">
-            <h3 className="font-extrabold text-slate-100 line-clamp-1 group-hover:text-indigo-400 transition-colors">
-              {game.title}
-            </h3>
+            <h3 className="font-extrabold text-slate-100 line-clamp-1 group-hover:text-indigo-400 transition-colors">{game.title}</h3>
             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">{game.category}</p>
           </div>
         </div>
@@ -115,12 +199,12 @@ const GamePlayer = ({ favorites, toggleFavorite }: any) => {
 
   useEffect(() => {
     if (!game) navigate('/');
-  }, [game]);
+  }, [game, navigate]);
 
   if (!game) return null;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <Link to="/" className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2 text-sm font-bold bg-indigo-500/10 px-4 py-2 rounded-xl border border-indigo-500/20">
           <i className="fas fa-arrow-left"></i> Back to Library
@@ -131,11 +215,11 @@ const GamePlayer = ({ favorites, toggleFavorite }: any) => {
         </button>
       </div>
       
-      <div className="relative aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group">
+      <div className="relative aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
         {loading && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 z-10 gap-4">
             <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Loading Environment...</p>
+            <p className="text-slate-500 font-bold tracking-widest text-xs uppercase">Loading Environment...</p>
           </div>
         )}
         <iframe 
@@ -146,18 +230,9 @@ const GamePlayer = ({ favorites, toggleFavorite }: any) => {
         />
       </div>
 
-      <div className="glass p-8 rounded-3xl space-y-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-black tracking-tight">{game.title}</h1>
-          <div className="flex gap-2">
-            {game.tags.map(tag => (
-              <span key={tag} className="px-3 py-1 bg-slate-800 text-slate-500 rounded-lg text-[10px] font-black uppercase tracking-widest border border-slate-700">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-        <p className="text-slate-400 leading-relaxed text-lg max-w-3xl">{game.description}</p>
+      <div className="glass p-8 rounded-3xl">
+        <h1 className="text-3xl font-black mb-4">{game.title}</h1>
+        <p className="text-slate-400 leading-relaxed text-lg">{game.description}</p>
       </div>
     </div>
   );
@@ -218,5 +293,35 @@ const App = () => {
             <Route path="/" element={
               <div className="space-y-12 max-w-7xl mx-auto pb-12">
                 {favGames.length > 0 && category === 'All' && !search && (
-                  <section className="animate-in fade-in slide-in-from-left-4 duration-500">
+                  <section>
                     <h2 className="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-tighter">
+                      <div className="w-1.5 h-6 bg-red-500 rounded-full"></div>
+                      Your Favorites
+                    </h2>
+                    <GameGrid games={favGames} favorites={favorites} toggleFavorite={toggleFavorite} />
+                  </section>
+                )}
+                
+                <section>
+                  <h2 className="text-xl font-black mb-6 flex items-center gap-3 uppercase tracking-tighter">
+                    <div className="w-1.5 h-6 bg-indigo-500 rounded-full"></div>
+                    {category === 'All' ? 'Popular Games' : `${category} Collection`}
+                  </h2>
+                  <GameGrid games={filteredGames} favorites={favorites} toggleFavorite={toggleFavorite} />
+                </section>
+              </div>
+            } />
+            <Route path="/play/:id" element={<GamePlayer favorites={favorites} toggleFavorite={toggleFavorite} />} />
+          </Routes>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+root.render(
+  <HashRouter>
+    <App />
+  </HashRouter>
+);
