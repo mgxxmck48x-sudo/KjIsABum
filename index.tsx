@@ -2,9 +2,6 @@
 import { GoogleGenAI } from "@google/genai";
 
 // --- GAME DATABASE ---
-// Using verified, iframe-friendly mirrors. 
-// Note: Some games may occasionally be blocked by strict school filters, 
-// but these sources are generally high-availability.
 const GAMES_DATABASE = [
   {
     "id": "retro-bowl",
@@ -161,58 +158,14 @@ const GAMES_DATABASE = [
     "isNew": true
   },
   {
-    "id": "worlds-hardest-game",
-    "title": "World's Hardest Game",
-    "thumbnail": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&h=300&fit=crop",
-    "url": "https://fun-unblocked-games.github.io/the-worlds-hardest-game/",
-    "category": "Puzzle",
-    "description": "Navigate through dangerous levels. It's more difficult than you think.",
-    "tags": ["hard", "puzzle", "logic"]
-  },
-  {
-    "id": "fireboy-watergirl",
-    "title": "Fireboy & Watergirl",
-    "thumbnail": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=300&fit=crop",
-    "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydigital/fbwg1@main/fbwg1.xml",
-    "category": "Puzzle",
-    "description": "Two heroes must work together to escape the Forest Temple.",
-    "tags": ["2-player", "co-op", "puzzle"]
-  },
-  {
-    "id": "duck-life-4",
-    "title": "Duck Life 4",
-    "thumbnail": "https://images.unsplash.com/photo-1555844411-390213a69988?w=400&h=300&fit=crop",
-    "url": "https://fun-unblocked-games.github.io/duck-life-4/",
+    "id": "eggy-car",
+    "title": "Eggy Car",
+    "thumbnail": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=400&h=300&fit=crop",
+    "url": "https://eggycar.org/",
     "category": "Other",
-    "description": "Train your duck to be a champion in racing and flying.",
-    "tags": ["training", "duck", "adventure"]
-  },
-  {
-    "id": "stickman-hook",
-    "title": "Stickman Hook",
-    "thumbnail": "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=400&h=300&fit=crop",
-    "url": "https://games.poki.com/458741/stickman-hook",
-    "category": "Action",
-    "description": "Swing like a spider and cross the finish line!",
-    "tags": ["swing", "physics", "casual"]
-  },
-  {
-    "id": "soccer-random",
-    "title": "Soccer Random",
-    "thumbnail": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=300&fit=crop",
-    "url": "https://www.twoplayergames.org/embed/soccer-random",
-    "category": "Sports",
-    "description": "Funny physics-based soccer. Just one button to score goals!",
-    "tags": ["soccer", "funny", "2-player"]
-  },
-  {
-    "id": "google-snake",
-    "title": "Google Snake",
-    "thumbnail": "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400&h=300&fit=crop",
-    "url": "https://www.google.com/logos/2010/pacman10-i.html",
-    "category": "Retro",
-    "description": "The ultimate classic. Simple, addictive, and perfect for breaks.",
-    "tags": ["retro", "snake", "classic"]
+    "description": "Drive a car with an egg in it. How far can you get without breaking it?",
+    "tags": ["physics", "casual", "funny"],
+    "isNew": true
   }
 ];
 
@@ -317,7 +270,8 @@ async function suggestGame() {
   elements.suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
   
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    // Correct initialization: always use new GoogleGenAI({apiKey: process.env.API_KEY})
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const gameTitles = GAMES_DATABASE.map(g => g.title).join(', ');
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -369,6 +323,8 @@ function renderCategories() {
 }
 
 function renderGames() {
+  if (!elements.gamesGrid) return;
+
   const filtered = GAMES_DATABASE.filter(game => {
     const q = state.searchQuery.toLowerCase();
     const matchesSearch = game.title.toLowerCase().includes(q) || 
@@ -381,14 +337,12 @@ function renderGames() {
   const favorites = GAMES_DATABASE.filter(g => state.favorites.includes(g.id));
 
   // Update Library Grid
-  if (elements.gamesGrid) {
-    if (filtered.length === 0) {
-      elements.gamesGrid.innerHTML = '';
-      elements.noResults?.classList.remove('hidden');
-    } else {
-      elements.noResults?.classList.add('hidden');
-      elements.gamesGrid.innerHTML = filtered.map(game => createGameCard(game)).join('');
-    }
+  elements.gamesGrid.innerHTML = filtered.map(game => createGameCard(game)).join('');
+  
+  if (filtered.length === 0) {
+    elements.noResults?.classList.remove('hidden');
+  } else {
+    elements.noResults?.classList.add('hidden');
   }
 
   // Update Favorites Section
@@ -403,8 +357,8 @@ function renderGames() {
 
   // Update Status Displays
   if (elements.gameCountDisplay) {
-    elements.gameCountDisplay.textContent = `Library: ${filtered.length} games ready`;
-    elements.gameCountDisplay.classList.remove('animate-pulse'); // Stop the "syncing" pulse
+    elements.gameCountDisplay.innerHTML = `<span class="inline-block w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>${filtered.length} Games Available`;
+    elements.gameCountDisplay.classList.remove('animate-pulse');
   }
   if (elements.collectionTitle) {
     elements.collectionTitle.innerHTML = `<div class="w-2 h-8 bg-indigo-500 rounded-full"></div> ${state.currentCategory === 'All' ? 'Best Unblocked Games' : state.currentCategory}`;
@@ -419,165 +373,156 @@ function createGameCard(game: any) {
                game.isNew ? '<span class="absolute top-3 left-3 px-2 py-0.5 bg-indigo-500 text-white text-[10px] font-bold rounded-lg z-10 uppercase tracking-tighter shadow-sm">New</span>' : '';
   
   return `
-    <div class="game-card group relative bg-slate-800/30 rounded-3xl overflow-hidden border border-slate-700/40 hover:border-indigo-500/60 transition-all duration-500 shadow-lg">
-      <div class="aspect-[4/3] overflow-hidden relative">
+    <div class="game-card group relative bg-slate-800/30 rounded-3xl overflow-hidden border border-slate-700/40 hover:border-indigo-500/60 transition-all duration-500 shadow-lg" data-id="${game.id}">
+      <div class="aspect-[4/3] relative overflow-hidden">
         ${badge}
-        <img src="${game.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-        <div class="play-overlay absolute inset-0 bg-slate-900/80 opacity-0 transition-all duration-300 flex flex-col items-center justify-center gap-4">
-          <button data-play-id="${game.id}" class="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-2xl hover:scale-110 hover:bg-indigo-500 transition-all">
-            <i class="fas fa-play text-xl ml-1"></i>
-          </button>
+        <img src="${game.thumbnail}" alt="${game.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="play-overlay absolute inset-0 bg-indigo-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+          <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform">
+            <i class="fas fa-play text-indigo-600 ml-1 text-2xl"></i>
+          </div>
         </div>
-        <button data-fav-id="${game.id}" class="absolute top-3 right-3 w-10 h-10 rounded-xl glass flex items-center justify-center z-10 transition-all hover:scale-110 active:scale-95">
-          <i class="${isFav ? 'fas fa-heart text-red-500' : 'far fa-heart text-white'} text-lg"></i>
+        <button class="fav-btn absolute top-3 right-3 w-10 h-10 rounded-xl bg-slate-900/60 backdrop-blur-md flex items-center justify-center text-white hover:bg-rose-500 transition-colors z-20">
+          <i class="${isFav ? 'fas text-rose-400' : 'far'} fa-heart"></i>
         </button>
       </div>
       <div class="p-4">
-        <h3 class="font-extrabold text-slate-100 group-hover:text-indigo-400 transition-colors line-clamp-1 text-sm">${game.title}</h3>
-        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">${game.category}</p>
+        <div class="flex justify-between items-start mb-1">
+          <h3 class="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors truncate">${game.title}</h3>
+        </div>
+        <p class="text-[10px] text-slate-400 font-medium uppercase tracking-widest">${game.category}</p>
       </div>
     </div>
   `;
 }
 
-function attachCardListeners() {
-  document.querySelectorAll('[data-play-id]').forEach(btn => {
-    (btn as HTMLElement).onclick = () => launchGame((btn as HTMLElement).dataset.playId || '');
-  });
-  document.querySelectorAll('[data-fav-id]').forEach(btn => {
-    (btn as HTMLElement).onclick = (e) => {
-      e.stopPropagation();
-      toggleFavorite((btn as HTMLElement).dataset.favId || '');
-    };
-  });
-}
+// --- FIXES: IMPLEMENTING MISSING FUNCTIONS ---
 
-function launchGame(id: string) {
-  const game = GAMES_DATABASE.find(g => g.id === id);
-  if (!game) return;
+// Fix: Implemented launchGame to handle view switching and iframe loading
+function launchGame(gameId: string) {
+  const game = GAMES_DATABASE.find(g => g.id === gameId);
+  if (!game || !elements.playerView || !elements.dashboardView || !elements.gameIframe) return;
 
   state.currentGame = game;
-  if (elements.playingTitle) elements.playingTitle.textContent = game.title;
-  if (elements.playingDescription) elements.playingDescription.textContent = game.description;
+  
+  if (elements.playingTitle) elements.playingTitle.innerText = game.title;
+  if (elements.playingDescription) elements.playingDescription.innerText = game.description;
+  
+  if (elements.gameLoader) elements.gameLoader.classList.remove('hidden');
+  elements.gameIframe.src = game.url;
+  
+  elements.gameIframe.onload = () => {
+    if (elements.gameLoader) elements.gameLoader.classList.add('hidden');
+  };
+
+  elements.dashboardView.classList.add('hidden');
+  elements.playerView.classList.remove('hidden');
   
   updatePlayerFavButton();
-
-  elements.dashboardView?.classList.add('hidden');
-  elements.playerView?.classList.remove('hidden');
-  elements.gameLoader?.classList.remove('hidden');
-  
-  // Clear and reload
-  if (elements.gameIframe) {
-    elements.gameIframe.src = "about:blank";
-    setTimeout(() => {
-        if (elements.gameIframe) elements.gameIframe.src = game.url;
-    }, 100);
-  }
-
-  if (elements.gameIframe) {
-    elements.gameIframe.onload = () => {
-      elements.gameLoader?.classList.add('hidden');
-    };
-    // Fallback if onload doesn't fire (some sites block it)
-    setTimeout(() => elements.gameLoader?.classList.add('hidden'), 5000);
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
-function updatePlayerFavButton() {
-  if (!state.currentGame || !elements.playerFavToggle) return;
-  const isFav = state.favorites.includes(state.currentGame.id);
-  elements.playerFavToggle.innerHTML = `<i class="fas fa-heart ${isFav ? 'text-red-500' : ''}"></i> ${isFav ? 'Favorited' : 'Add Favorite'}`;
-  elements.playerFavToggle.className = `px-4 py-2 rounded-xl flex items-center gap-2 font-medium border transition-all ${isFav ? 'bg-red-500/10 border-red-500/20 text-red-500' : 'bg-slate-800 border-slate-700 text-slate-400'}`;
-  elements.playerFavToggle.onclick = () => {
-    toggleFavorite(state.currentGame.id);
-    updatePlayerFavButton();
-  };
-}
-
+// Fix: Implemented showDashboard to return from player to library view
 function showDashboard() {
+  if (!elements.dashboardView || !elements.playerView || !elements.gameIframe) return;
+  
   state.currentGame = null;
-  elements.playerView?.classList.add('hidden');
-  elements.dashboardView?.classList.remove('hidden');
-  if (elements.gameIframe) elements.gameIframe.src = 'about:blank';
+  elements.gameIframe.src = '';
+  
+  elements.playerView.classList.add('hidden');
+  elements.dashboardView.classList.remove('hidden');
+}
+
+// Fix: Implemented attachCardListeners to assign click events to game cards
+function attachCardListeners() {
+  document.querySelectorAll('.game-card').forEach(card => {
+    const id = (card as HTMLElement).dataset.id;
+    if (!id) return;
+
+    card.querySelector('.play-overlay')?.addEventListener('click', () => launchGame(id));
+    card.querySelector('.fav-btn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFavorite(id);
+    });
+  });
 }
 
 function toggleFavorite(id: string) {
-  if (state.favorites.includes(id)) {
-    state.favorites = state.favorites.filter((fid: string) => fid !== id);
+  const index = state.favorites.indexOf(id);
+  if (index > -1) {
+    state.favorites.splice(index, 1);
   } else {
     state.favorites.push(id);
   }
   localStorage.setItem('gv-favorites', JSON.stringify(state.favorites));
   renderGames();
+  updatePlayerFavButton();
 }
 
-function updateStealthUI() {
+function updatePlayerFavButton() {
+  if (!elements.playerFavToggle || !state.currentGame) return;
+  const isFav = state.favorites.includes(state.currentGame.id);
+  elements.playerFavToggle.innerHTML = isFav 
+    ? '<i class="fas fa-heart text-rose-500"></i> Saved' 
+    : '<i class="far fa-heart"></i> Save Game';
+}
+
+function toggleStealth() {
+  state.isStealth = !state.isStealth;
   if (state.isStealth) {
     document.title = "My Drive - Google Drive";
     if (elements.favicon) elements.favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
-    if (elements.stealthToggle) {
-      elements.stealthToggle.innerHTML = '<i class="fas fa-eye-slash"></i><span class="hidden md:inline">Stealth: ON</span>';
-      elements.stealthToggle.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
-    }
+    elements.stealthToggle?.classList.add('text-indigo-500');
   } else {
-    document.title = "Gabriel Village | Unblocked Games";
-    if (elements.favicon) elements.favicon.href = "https://picsum.photos/32/32?random=50";
-    if (elements.stealthToggle) {
-      elements.stealthToggle.innerHTML = '<i class="fas fa-mask"></i><span class="hidden md:inline">Stealth Mode</span>';
-      elements.stealthToggle.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
-    }
+    document.title = "GameVault | Unblocked Hub";
+    if (elements.favicon) elements.favicon.href = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=32&h=32&fit=crop";
+    elements.stealthToggle?.classList.remove('text-indigo-500');
+  }
+}
+
+function setupEventListeners() {
+  if (elements.searchInput) {
+    elements.searchInput.oninput = (e) => {
+      state.searchQuery = (e.target as HTMLInputElement).value;
+      renderGames();
+    };
+  }
+
+  if (elements.backButton) {
+    elements.backButton.onclick = showDashboard;
+  }
+
+  if (elements.navLogo) {
+    elements.navLogo.onclick = showDashboard;
+  }
+
+  if (elements.suggestBtn) {
+    elements.suggestBtn.onclick = suggestGame;
+  }
+
+  if (elements.stealthToggle) {
+    elements.stealthToggle.onclick = toggleStealth;
+  }
+
+  if (elements.fullscreenBtn) {
+    elements.fullscreenBtn.onclick = () => {
+      if (elements.gameIframe?.requestFullscreen) {
+        elements.gameIframe.requestFullscreen();
+      }
+    };
+  }
+
+  if (elements.playerFavToggle) {
+    elements.playerFavToggle.onclick = () => {
+      if (state.currentGame) toggleFavorite(state.currentGame.id);
+    };
   }
 }
 
 // --- INITIALIZATION ---
-function startApp() {
+window.onload = () => {
   cacheElements();
-  
-  // Hard fix: ensure at least the grid is present before continuing
-  if (!elements.gamesGrid) {
-      const grid = document.getElementById('games-grid');
-      if (grid) {
-          elements.gamesGrid = grid;
-      } else {
-          console.error("Critical Failure: UI container missing.");
-          return;
-      }
-  }
-
   renderCategories();
   renderGames();
-  
-  elements.searchInput?.addEventListener('input', (e) => {
-    state.searchQuery = (e.target as HTMLInputElement).value;
-    renderGames();
-  });
-
-  elements.stealthToggle?.addEventListener('click', () => {
-    state.isStealth = !state.isStealth;
-    updateStealthUI();
-  });
-
-  elements.backButton?.addEventListener('click', showDashboard);
-  elements.navLogo?.addEventListener('click', showDashboard);
-  elements.suggestBtn?.addEventListener('click', suggestGame);
-
-  elements.fullscreenBtn?.addEventListener('click', () => {
-    if (!elements.gameIframe) return;
-    const iframe = elements.gameIframe as any;
-    if (iframe.requestFullscreen) iframe.requestFullscreen();
-    else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-  });
-
-  updateStealthUI();
-  console.log("Gabriel Village Game Engine: System Online.");
-}
-
-// Multi-stage loader for maximum compatibility
-window.addEventListener('load', startApp);
-document.addEventListener('DOMContentLoaded', startApp);
-// Immediate attempt
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    startApp();
-}
+  setupEventListeners();
+};
