@@ -2,6 +2,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 // --- GAME DATABASE ---
+// Using verified iframe-friendly mirrors to minimize "black screen" or "refused to connect" errors.
 const GAMES_DATABASE = [
   {
     "id": "retro-bowl",
@@ -11,6 +12,26 @@ const GAMES_DATABASE = [
     "category": "Sports",
     "description": "The ultimate retro-style American football management game. Lead your team to glory!",
     "tags": ["football", "sports", "retro", "popular"],
+    "isHot": true
+  },
+  {
+    "id": "slope",
+    "title": "Slope",
+    "thumbnail": "https://images.unsplash.com/photo-1614294149010-950b698f72c0?w=400&h=300&fit=crop",
+    "url": "https://kdata1.com/2020/05/slope/",
+    "category": "Action",
+    "description": "Control a ball rolling down a steep slope. Avoid obstacles and don't fall off!",
+    "tags": ["action", "3d", "speed"],
+    "isHot": true
+  },
+  {
+    "id": "subway-surfers",
+    "title": "Subway Surfers",
+    "thumbnail": "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=400&h=300&fit=crop",
+    "url": "https://poki.com/en/g/subway-surfers",
+    "category": "Action",
+    "description": "Dash as fast as you can! Dodge the oncoming trains!",
+    "tags": ["runner", "action", "classic"],
     "isHot": true
   },
   {
@@ -24,6 +45,16 @@ const GAMES_DATABASE = [
     "isHot": true
   },
   {
+    "id": "temple-run-2",
+    "title": "Temple Run 2",
+    "thumbnail": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&h=300&fit=crop",
+    "url": "https://poki.com/en/g/temple-run-2",
+    "category": "Action",
+    "description": "Navigate perilous cliffs, zip lines, mines and forests as you try to escape with the cursed idol.",
+    "tags": ["runner", "action"],
+    "isNew": true
+  },
+  {
     "id": "bitlife",
     "title": "BitLife",
     "thumbnail": "https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?w=400&h=300&fit=crop",
@@ -34,20 +65,10 @@ const GAMES_DATABASE = [
     "isNew": true
   },
   {
-    "id": "slope",
-    "title": "Slope",
-    "thumbnail": "https://images.unsplash.com/photo-1614294149010-950b698f72c0?w=400&h=300&fit=crop",
-    "url": "https://slope-game.github.io/",
-    "category": "Action",
-    "description": "Control a ball rolling down a steep slope. Avoid obstacles and don't fall off!",
-    "tags": ["action", "3d", "speed"],
-    "isHot": true
-  },
-  {
     "id": "run-3",
     "title": "Run 3",
     "thumbnail": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&h=300&fit=crop",
-    "url": "https://run3.io/",
+    "url": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydigital/run3@main/run3.xml",
     "category": "Action",
     "description": "Run and jump through space tunnels. Gravity shifts as you move around the walls.",
     "tags": ["action", "space", "runner"]
@@ -60,6 +81,16 @@ const GAMES_DATABASE = [
     "category": "Sports",
     "description": "Extreme bike stunts and racing. Beat the timer and avoid deadly traps.",
     "tags": ["racing", "bike", "stunts"]
+  },
+  {
+    "id": "basketball-stars",
+    "title": "Basketball Stars",
+    "thumbnail": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop",
+    "url": "https://poki.com/en/g/basketball-stars",
+    "category": "Sports",
+    "description": "Play as the best basketball stars in the world in this fast-paced 2D game.",
+    "tags": ["sports", "basketball", "2-player"],
+    "isHot": true
   },
   {
     "id": "minecraft-eagler",
@@ -161,15 +192,6 @@ const GAMES_DATABASE = [
     "category": "Sports",
     "description": "Customize your car and drift on various tracks in this 3D simulator.",
     "tags": ["racing", "drift", "3d"]
-  },
-  {
-    "id": "happy-wheels",
-    "title": "Happy Wheels",
-    "thumbnail": "https://images.unsplash.com/photo-1590483734724-383b853b237d?w=400&h=300&fit=crop",
-    "url": "https://totaljerkface.com/happy_wheels.tjf",
-    "category": "Other",
-    "description": "Ragdoll physics platformer with user-created levels. Expect chaos!",
-    "tags": ["physics", "funny", "classic"]
   },
   {
     "id": "snowball-io",
@@ -303,7 +325,6 @@ async function suggestGame() {
     const suggestion = response.text?.trim() || 'Retro Bowl';
     const game = GAMES_DATABASE.find(g => suggestion.includes(g.title)) || GAMES_DATABASE[0];
     
-    // Smooth transition to launch
     elements.suggestBtn.innerHTML = `<i class="fas fa-magic"></i> Try ${game.title}!`;
     setTimeout(() => {
       launchGame(game.id);
@@ -388,8 +409,8 @@ function renderGames() {
 
 function createGameCard(game: any) {
   const isFav = state.favorites.includes(game.id);
-  const badge = game.isHot ? '<span class="absolute top-3 left-3 px-2 py-0.5 bg-orange-500 text-white text-[10px] font-bold rounded-lg z-10 uppercase tracking-tighter">Hot</span>' : 
-               game.isNew ? '<span class="absolute top-3 left-3 px-2 py-0.5 bg-indigo-500 text-white text-[10px] font-bold rounded-lg z-10 uppercase tracking-tighter">New</span>' : '';
+  const badge = game.isHot ? '<span class="absolute top-3 left-3 px-2 py-0.5 bg-orange-500 text-white text-[10px] font-bold rounded-lg z-10 uppercase tracking-tighter shadow-sm">Hot</span>' : 
+               game.isNew ? '<span class="absolute top-3 left-3 px-2 py-0.5 bg-indigo-500 text-white text-[10px] font-bold rounded-lg z-10 uppercase tracking-tighter shadow-sm">New</span>' : '';
   
   return `
     <div class="game-card group relative bg-slate-800/30 rounded-3xl overflow-hidden border border-slate-700/40 hover:border-indigo-500/60 transition-all duration-500 shadow-lg">
@@ -438,7 +459,15 @@ function launchGame(id: string) {
   elements.dashboardView?.classList.add('hidden');
   elements.playerView?.classList.remove('hidden');
   elements.gameLoader?.classList.remove('hidden');
-  if (elements.gameIframe) elements.gameIframe.src = game.url;
+  
+  // Clear existing iframe to avoid residue
+  if (elements.gameIframe) {
+    elements.gameIframe.src = "about:blank";
+    // Short timeout to ensure cleaner load
+    setTimeout(() => {
+        if (elements.gameIframe) elements.gameIframe.src = game.url;
+    }, 50);
+  }
 
   if (elements.gameIframe) {
     elements.gameIframe.onload = () => {
@@ -464,7 +493,7 @@ function showDashboard() {
   state.currentGame = null;
   elements.playerView?.classList.add('hidden');
   elements.dashboardView?.classList.remove('hidden');
-  if (elements.gameIframe) elements.gameIframe.src = '';
+  if (elements.gameIframe) elements.gameIframe.src = 'about:blank';
 }
 
 function toggleFavorite(id: string) {
@@ -498,6 +527,13 @@ function updateStealthUI() {
 // --- INITIALIZATION ---
 function startApp() {
   cacheElements();
+  
+  if (!elements.gamesGrid) {
+      console.warn("Retrying initialization...");
+      setTimeout(startApp, 100);
+      return;
+  }
+
   renderCategories();
   renderGames();
   
@@ -520,15 +556,16 @@ function startApp() {
     const iframe = elements.gameIframe as any;
     if (iframe.requestFullscreen) iframe.requestFullscreen();
     else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+    else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
   });
 
   updateStealthUI();
   console.log("Gabriel Village Game Engine Initialized.");
 }
 
-// Reliable bootloader
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  startApp();
+// Robust loading
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startApp);
 } else {
-  window.addEventListener('load', startApp);
+    startApp();
 }
